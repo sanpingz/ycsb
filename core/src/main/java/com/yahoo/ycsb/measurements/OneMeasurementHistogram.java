@@ -90,7 +90,7 @@ public class OneMeasurementHistogram extends OneMeasurement {
       */
     public synchronized void measure(int latency) {
 		// Half adjusting for the latency
-		int ms = (latency+500) / 1000
+		int ms = (latency+500) / 1000;
         if (ms >= _buckets.get()) {
             histogramoverflow.incrementAndGet();
         } else {
