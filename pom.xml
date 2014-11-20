@@ -65,8 +65,8 @@
   <modules>
     <!--module>build-tools</module-->
     <module>core</module>
-    <module>cassandra</module>
 	<module>aerospike</module>
+    <module>cassandra</module>
     <module>redis</module>
     <module>infinispan</module>
 	<module>memcached</module>
