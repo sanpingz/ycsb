@@ -5,7 +5,7 @@
 
   <groupId>com.yahoo.ycsb</groupId>
   <artifactId>root</artifactId>
-  <version>0.1.4</version>
+  <version>0.1.5</version>
   <packaging>pom</packaging>
 
   <name>YCSB Root</name>
@@ -52,7 +52,7 @@
 	<memcached.version>2.8.4</memcached.version>
     <openjpa.jdbc.version>2.3.0</openjpa.jdbc.version>
     <mapkeeper.version>1.0</mapkeeper.version>
-    <mongodb.version>2.12.0</mongodb.version>
+    <mongodb.version>2.12.4</mongodb.version>
     <orientdb.version>1.0.1</orientdb.version>
     <redis.version>2.6.0</redis.version>
     <voldemort.version>0.81</voldemort.version>
@@ -60,18 +60,20 @@
     <thrift.version>0.9.1</thrift.version>
 	<hector.version>2.0-0</hector.version>
     <hypertable.version>0.9.5.6</hypertable.version>
+    <couchbase.version>1.4.5</couchbase.version>
   </properties>
 
   <modules>
     <!--module>build-tools</module-->
     <module>core</module>
-	<module>aerospike</module>
     <module>cassandra</module>
+	<module>aerospike</module>
     <module>redis</module>
     <module>infinispan</module>
+	<!--
 	<module>memcached</module>
     <module>mongodb</module>
-	<!--
+    <module>couchbase</module>
     <module>hbase</module>
     <module>hypertable</module>
     <module>accumulo</module>

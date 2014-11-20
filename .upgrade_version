@@ -1,0 +1,4 @@
+current_version="0.1.4"
+new_version="0.1.5"
+grep -l \<version\>${current_version}\</version\> pom.xml | xargs sed -i "s/<version>${current_version}<\/version>/<version>${new_version}<\/version>/g"
+grep -l \<version\>${current_version}\</version\> */pom.xml | xargs sed -i "s/<version>${current_version}<\/version>/<version>${new_version}<\/version>/g"
