@@ -85,15 +85,16 @@ public class OneMeasurementHistogram extends OneMeasurement {
         retrycounts.addAndGet(count);
     }
 
-
     /* (non-Javadoc)
       * @see com.yahoo.ycsb.OneMeasurement#measure(int)
       */
     public synchronized void measure(int latency) {
-        if (latency / 1000 >= _buckets.get()) {
+		// Half adjusting for the latency
+		int ms = (latency+500) / 1000
+        if (ms >= _buckets.get()) {
             histogramoverflow.incrementAndGet();
         } else {
-            histogram.incrementAndGet(latency / 1000);
+            histogram.incrementAndGet(ms);
         }
         operations.incrementAndGet();
         totallatency.addAndGet(latency);
@@ -108,7 +109,6 @@ public class OneMeasurementHistogram extends OneMeasurement {
             max.set(latency);
         }
     }
-
 
     @Override
     public void exportMeasurements(MeasurementsExporter exporter) throws IOException {
