@@ -36,20 +36,31 @@ public abstract class OneMeasurement {
 	 * @param _name
 	 */
 	public OneMeasurement(String _name) {
-		this._name = _name;
+        this._name = _name;
+    }
+
+	public <T extends Number> String usToMs(String format, T d) {
+		return String.format(format, d.doubleValue()/1000.0);
 	}
 
-	public abstract void reportReturnCode(int code);
+    public abstract void reportReturnCode(int code);
 
-	public abstract void measure(int latency);
+    public abstract void reportRetryCount(int retryCount);
 
-	public abstract String getSummary();
+    public abstract void measure(int latency);
 
-  /**
-   * Export the current measurements to a suitable format.
-   * 
-   * @param exporter Exporter representing the type of format to write to.
-   * @throws IOException Thrown if the export failed.
-   */
-  public abstract void exportMeasurements(MeasurementsExporter exporter) throws IOException;
+    public abstract String getSummary();
+
+    /**
+     * Export the current measurements to a suitable format.
+     *
+     * @param exporter Exporter representing the type of format to write to.
+     * @throws IOException Thrown if the export failed.
+     */
+    public abstract void exportMeasurements(MeasurementsExporter exporter) throws IOException;
+
+    public abstract void exportMeasurementsPart(MeasurementsExporter exporter) throws IOException;
+
+    public abstract void exportMeasurementsFinal(MeasurementsExporter exporter) throws IOException;
+
 }

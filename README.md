@@ -1,10 +1,11 @@
 Yahoo! Cloud System Benchmark (YCSB)
 ====================================
-[![Build Status](https://travis-ci.org/brianfrankcooper/YCSB.png?branch=master)](https://travis-ci.org/brianfrankcooper/YCSB)
+[![Build Status](https://travis-ci.org/sanpingz/ycsb.svg?branch=master)](https://travis-ci.org/sanpingz/ycsb)
 
 Links
 -----
 http://wiki.github.com/brianfrankcooper/YCSB/  
+https://github.com/aerospike/ycsb
 http://research.yahoo.com/Web_Information_Management/YCSB/  
 ycsb-users@yahoogroups.com  
 

@@ -25,10 +25,9 @@ COMMANDS = {
 
 DATABASES = {
     "accumulo"     : "com.yahoo.ycsb.db.AccumuloClient",
+	"aerospike"    : "com.yahoo.ycsb.db.AerospikeClient",
     "basic"        : "com.yahoo.ycsb.BasicDB",
-    "cassandra-7"  : "com.yahoo.ycsb.db.CassandraClient7",
-    "cassandra-8"  : "com.yahoo.ycsb.db.CassandraClient8",
-    "cassandra-10" : "com.yahoo.ycsb.db.CassandraClient10",
+    "cassandra"	   : "com.yahoo.ycsb.db.HectorCassandraClient",
     "dynamodb"     : "com.yahoo.ycsb.db.DynamoDBClient",
     "elasticsearch": "com.yahoo.ycsb.db.ElasticSearchClient",
     "gemfire"      : "com.yahoo.ycsb.db.GemFireClient",
@@ -38,9 +37,10 @@ DATABASES = {
     "jdbc"         : "com.yahoo.ycsb.db.JdbcDBClient",
     "mapkeeper"    : "com.yahoo.ycsb.db.MapKeeperClient",
     "mongodb"      : "com.yahoo.ycsb.db.MongoDbClient",
+    "memcached"    : "com.yahoo.ycsb.db.MemcachedClient",
     "nosqldb"      : "com.yahoo.ycsb.db.NoSqlDbClient",
     "orientdb"     : "com.yahoo.ycsb.db.OrientDBClient",
-    "redis"        : "com.yahoo.ycsb.db.RedisClient", 
+    "redis"        : "com.yahoo.ycsb.db.RedisCluster", 
     "voldemort"    : "com.yahoo.ycsb.db.VoldemortClient", 
 }
 
@@ -93,24 +93,28 @@ def get_ycsb_home():
         dir = os.path.join(dir, os.path.pardir)
     return os.path.abspath(dir)
 
-if len(sys.argv) < 3:
-    usage()
-if sys.argv[1] not in COMMANDS:
-    print "ERROR: Command '%s' not found" % sys.argv[1]
-    usage()
-if sys.argv[2] not in DATABASES:
-    print "ERROR: Database '%s' not found" % sys.argv[2]
-    usage()
+if __name__ == '__main__':
+	if len(sys.argv) < 3:
+		usage()
+	if sys.argv[1] not in COMMANDS:
+		print "ERROR: Command '%s' not found" % sys.argv[1]
+		usage()
+	if sys.argv[2] not in DATABASES:
+		print "ERROR: Database '%s' not found" % sys.argv[2]
+		usage()
 
-ycsb_home = get_ycsb_home()
-command = COMMANDS[sys.argv[1]]["command"]
-database = sys.argv[2]
-db_classname = DATABASES[database]
-options = sys.argv[3:]
+	ycsb_home = get_ycsb_home()
+	command = COMMANDS[sys.argv[1]]["command"]
+	database = sys.argv[2]
+	db_classname = DATABASES[database]
+	options = sys.argv[3:]
 
-ycsb_command = ["java", "-cp", os.pathsep.join(find_jars(ycsb_home, database)), \
-                COMMANDS[sys.argv[1]]["main"], "-db", db_classname] + options
-if command:
-    ycsb_command.append(command)
-print " ".join(ycsb_command)
-subprocess.call(ycsb_command)
+	ycsb_command = ["java", "-cp", os.pathsep.join(find_jars(ycsb_home, database)), \
+			COMMANDS[sys.argv[1]]["main"], "-db", db_classname] + options
+	if command:
+		ycsb_command.append(command)
+	print " ".join(ycsb_command)
+	try:
+		subprocess.call(ycsb_command)
+	except KeyboardInterrupt:
+		print "Keyboard Interrupt detected"
