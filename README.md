@@ -5,7 +5,7 @@ Yahoo! Cloud System Benchmark (YCSB)
 Links
 -----
 http://wiki.github.com/brianfrankcooper/YCSB/  
-https://github.com/aerospike/ycsb
+https://github.com/aerospike/ycsb  
 http://research.yahoo.com/Web_Information_Management/YCSB/  
 ycsb-users@yahoogroups.com  
 
@@ -15,7 +15,7 @@ Getting Started
 1. Download the latest release of YCSB:
 
     ```sh
-    wget https://github.com/downloads/brianfrankcooper/YCSB/ycsb-0.1.4.tar.gz
+    wget https://github.com/downloads/sanpingz/ycsb/ycsb-0.1.4.tar.gz
     tar xfvz ycsb-0.1.4
     cd ycsb-0.1.4
     ```
