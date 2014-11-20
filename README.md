@@ -8,6 +8,7 @@ http://wiki.github.com/brianfrankcooper/YCSB/
 https://github.com/aerospike/ycsb  
 http://research.yahoo.com/Web_Information_Management/YCSB/  
 ycsb-users@yahoogroups.com  
+mceiba@gmail.com  
 
 Getting Started
 ---------------
