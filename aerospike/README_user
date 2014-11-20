@@ -1,6 +1,6 @@
 ############# SETUP #######################################################################################
 1. Download the ycsb tool.
-2. tar xzf ycsb-0.1.4.tar.gz
+2. tar xzf ycsb-0.1.5.tar.gz
 3. cd ycsb-<version>
 4. Add '"aerospike"    : "com.yahoo.ycsb.db.AerospikeClient",;' into the DATABASE section of bin/ycsb
 5. mkdir aerospike-binding
