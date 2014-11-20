@@ -1,6 +1,6 @@
 ## Quick Start
 
-This section describes how to run YCSB on Redis. 
+This section describes how to run YCSB on Redis, Redis Cluster has been supported. 
 
 ### 1. Start Redis
 
@@ -10,7 +10,7 @@ This section describes how to run YCSB on Redis.
 
 Git clone YCSB and compile:
 
-    git clone http://github.com/brianfrankcooper/YCSB.git
+    git clone http://github.com/sanpingz/ycsb.git
     cd YCSB
     mvn -pl com.yahoo.ycsb:core,com.yahoo.ycsb:redis-binding clean package
 
