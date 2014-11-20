@@ -461,6 +461,8 @@ public class Client {
     public static final String EXPORT_MEASUREMENTS_INTERVAL = "exportmeasurementsinterval";
     public static final String RECORD_COUNT_PROPERTY = "recordcount";
     public static final String WORKLOAD_PROPERTY = "workload";
+	public static final String THREADCOUNT_PROPERTY = "threadcount";
+	public static final String THREADCOUNT_PROPERTY_DEFAULT = Integer.toString(Runtime.getRuntime().availableProcessors());
 
     /**
      * Indicates how many inserts to do, if less than recordcount. Useful for partitioning
@@ -477,7 +479,7 @@ public class Client {
     public static void usageMessage() {
         System.out.println("Usage: java com.yahoo.ycsb.Client [options]");
         System.out.println("Options:");
-        System.out.println("  -threads n: execute using n threads (default: 1) - can also be specified as the \n" +
+        System.out.println("  -threads n: execute using n threads (default: number of processors) - can also be specified as the \n" +
                 "              \"threadcount\" property using -p");
         System.out.println("  -target n: attempt to do n operations per second (default: unlimited) - can also\n" +
                 "             be specified as the \"target\" property using -p");
@@ -584,7 +586,7 @@ public class Client {
                     System.exit(0);
                 }
                 int tcount = Integer.parseInt(args[argindex]);
-                props.setProperty("threadcount", tcount + "");
+                props.setProperty(THREADCOUNT_PROPERTY, tcount + "");
                 argindex++;
             } else if (args[argindex].compareTo("-target") == 0) {
                 argindex++;
@@ -697,7 +699,7 @@ public class Client {
         long maxExecutionTime = Integer.parseInt(props.getProperty(MAX_EXECUTION_TIME, "0"));
 
         //get number of threads, target and db
-        threadcount = Integer.parseInt(props.getProperty("threadcount", "1"));
+        threadcount = Integer.parseInt(props.getProperty(THREADCOUNT_PROPERTY, THREADCOUNT_PROPERTY_DEFAULT));
         dbname = props.getProperty("db", "com.yahoo.ycsb.BasicDB");
         target = Integer.parseInt(props.getProperty("target", "0"));
 

@@ -144,7 +144,7 @@ public class DBWrapper extends DB {
         long st = System.nanoTime();
         int res = _db.scan(table, startkey, recordcount, fields, result);
         long en = System.nanoTime();
-        _measurements.measure("SCAN", (int) ((en - st) / 1000));
+        _measurements.measure("SCAN", (int) ((en-st+500)/1000));
         _measurements.reportReturnCode("SCAN", res);
         return res;
     }
@@ -216,7 +216,7 @@ public class DBWrapper extends DB {
             res = op.go();
         }
         long en = System.nanoTime();
-        _measurements.measure(op.name(), (int) ((en - st) / 1000));
+        _measurements.measure(op.name(), (int) ((en-st+500)/1000));
         _measurements.reportRetryCount(op.name(), retryCount);
         _measurements.reportReturnCode(op.name(), res);
         return res;
@@ -242,7 +242,7 @@ public class DBWrapper extends DB {
         long st = System.nanoTime();
         int res = _db.delete(table, key);
         long en = System.nanoTime();
-        _measurements.measure("DELETE", (int) ((en - st) / 1000));
+        _measurements.measure("DELETE", (int) ((en-st+500)/1000));
         _measurements.reportReturnCode("DELETE", res);
         return res;
     }
