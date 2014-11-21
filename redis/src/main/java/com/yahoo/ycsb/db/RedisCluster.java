@@ -30,28 +30,27 @@ public class RedisCluster extends DB {
     private JedisCluster jedis;
 
     public static final String HOST_PROPERTY = "redis.host";
+    public static final String HOST_PROPERTY_DEFAULT = "127.0.0.1";
     public static final String PORT_PROPERTY = "redis.port";
+    public static final int PORT_PROPERTY_DEFAULT = Protocol.DEFAULT_PORT;
     public static final String PASSWORD_PROPERTY = "redis.password";
 
     public static final String INDEX_KEY = "_indices";
 
     public void init() throws DBException {
         Properties props = getProperties();
-        int port;
-
-        String portString = props.getProperty(PORT_PROPERTY);
-        if (portString != null) {
-            port = Integer.parseInt(portString);
-        }
-        else {
-            port = Protocol.DEFAULT_PORT;
-        }
-        String host = props.getProperty(HOST_PROPERTY);
+		String host = props.getProperty(HOST_PROPERTY, HOST_PROPERTY_DEFAULT);
+        int port = Integer.parseInt(props.getProperty(PORT_PROPERTY, Integer.toString(Protocol.DEFAULT_PORT)));
 
 		Set<HostAndPort> jedisClusterNodes = new HashSet<HostAndPort>();
 		//Jedis Cluster will attempt to discover cluster nodes automatically
 		jedisClusterNodes.add(new HostAndPort(host, port));
-		jedis = new JedisCluster(jedisClusterNodes);
+		try {
+			jedis = new JedisCluster(jedisClusterNodes);
+		} catch (Exception e) {
+			throw new DBException(String.format("Failed to init cluster through %s:%d.", host, port));
+		}
+
         //jedis = new Jedis(host, port);
         //jedis.connect();
 

@@ -66,10 +66,11 @@
   <modules>
     <!--module>build-tools</module-->
     <module>core</module>
-    <module>cassandra</module>
-	<module>aerospike</module>
+    <module>jedis</module>
     <module>redis</module>
+	<module>aerospike</module>
     <module>infinispan</module>
+    <module>cassandra</module>
 	<!--
 	<module>memcached</module>
     <module>mongodb</module>
@@ -94,16 +95,16 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>2.3.2</version>
+        <version>3.2</version>
         <configuration>
-          <source>1.6</source>
-          <target>1.6</target>
+          <source>1.7</source>
+          <target>1.7</target>
         </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>2.6</version>
+        <version>2.13</version>
         <configuration>
           <consoleOutput>false</consoleOutput>
           <configLocation>checkstyle.xml</configLocation>
