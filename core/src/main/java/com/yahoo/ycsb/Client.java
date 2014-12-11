@@ -41,7 +41,7 @@ class StatusThread extends Thread {
     /**
      * The interval for reporting status.
      */
-    public static final long sleeptime = 2000;
+    public static final long sleeptime = 10000;
 
     public StatusThread(Vector<Thread> threads, String label, boolean standardstatus) {
         _threads = threads;
