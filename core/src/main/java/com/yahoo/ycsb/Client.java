@@ -220,7 +220,7 @@ class WarmupThread extends ClientThread {
      * @param targetperthreadperms target number of operations per thread per ms
      * @param exectime             execution time of thread
      */
-    public WarmupThread(DB db, boolean dotransactions, Workload workload, Properties props, int opcount, double targetperthreadperms, long exectime) {
+    public WarmupThread(DB db, boolean dotransactions, Workload workload, Properties props, long opcount, double targetperthreadperms, long exectime) {
         super(db, dotransactions, workload, props, opcount, targetperthreadperms);
         this.exectime = exectime;
         this.curexec = 0;
@@ -266,12 +266,12 @@ class ClientThread extends Thread {
     DB _db;
     boolean _dotransactions;
     Workload _workload;
-    int _opcount;
+    long _opcount;
     double _target;
     double reconnectionthroughput;
     long reconncetiontime;
 
-    int _opsdone;
+    long _opsdone;
     Object _workloadstate;
     Properties _props;
 
@@ -295,7 +295,7 @@ class ClientThread extends Thread {
      * @param opcount              the number of operations (transactions or inserts) to do
      * @param targetperthreadperms target number of operations per thread per ms
      */
-    public ClientThread(DB db, boolean dotransactions, Workload workload, Properties props, int opcount, double targetperthreadperms) {
+    public ClientThread(DB db, boolean dotransactions, Workload workload, Properties props, long opcount, double targetperthreadperms) {
         _db = db;
         _dotransactions = dotransactions;
         _workload = workload;
@@ -308,7 +308,7 @@ class ClientThread extends Thread {
         this.reconncetiontime = Long.parseLong(props.getProperty(RECONNECTION_TIME_PROPERTY, RECONNECTION_TIME_DEFAULT));
     }
 
-    public int getOpsDone() {
+    public long getOpsDone() {
         return _opsdone;
     }
 
@@ -544,7 +544,7 @@ public class Client {
      *
      * @throws IOException Either failed to write to output stream or failed to close it.
      */
-    private static void exportMeasurements(MeasurementsExporter exporter, int opcount, long runtime)
+    private static void exportMeasurements(MeasurementsExporter exporter, long opcount, long runtime)
             throws IOException {
         try {
             exporter.write("OVERALL", "RunTime(ms)", runtime);
@@ -765,14 +765,14 @@ public class Client {
 
         System.err.println("Starting test.");
 
-        int opcount;
+        long opcount;
         if (dotransactions) {
-            opcount = Integer.parseInt(props.getProperty(OPERATION_COUNT_PROPERTY, "0"));
+            opcount = Long.parseLong(props.getProperty(OPERATION_COUNT_PROPERTY, "0"));
         } else {
             if (props.containsKey(INSERT_COUNT_PROPERTY)) {
-                opcount = Integer.parseInt(props.getProperty(INSERT_COUNT_PROPERTY, "0"));
+                opcount = Long.parseLong(props.getProperty(INSERT_COUNT_PROPERTY, "0"));
             } else {
-                opcount = Integer.parseInt(props.getProperty(RECORD_COUNT_PROPERTY, "0"));
+                opcount = Long.parseLong(props.getProperty(RECORD_COUNT_PROPERTY, "0"));
             }
         }
 

@@ -397,8 +397,8 @@ public class CoreWorkload extends Workload {
             //plus the number of predicted keys as the total keyspace. then, if the generator picks a key that hasn't been inserted yet, will
             //just ignore it and pick another key. this way, the size of the keyspace doesn't change from the perspective of the scrambled zipfian generator
 
-            int opcount = Integer.parseInt(p.getProperty(Client.OPERATION_COUNT_PROPERTY));
-            int expectednewkeys = (int) (((double) opcount) * insertproportion * 2.0); //2 is fudge factor
+            long opcount = Long.parseLong(p.getProperty(Client.OPERATION_COUNT_PROPERTY));
+            long expectednewkeys = (long) (((double) opcount) * insertproportion * 2.0); //2 is fudge factor
 
             keychooser = new ScrambledZipfianGenerator(recordcount + expectednewkeys);
         } else if (requestdistrib.compareTo("latest") == 0) {
