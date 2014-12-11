@@ -13,11 +13,14 @@ import com.aerospike.client.ResultCode;
 import com.aerospike.client.Value;
 import com.aerospike.client.policy.Policy;
 import com.aerospike.client.policy.WritePolicy;
+import com.aerospike.client.policy.GenerationPolicy;
 import com.yahoo.ycsb.ByteIterator;
 import com.yahoo.ycsb.DBException;
 
 public class AerospikeClient extends com.yahoo.ycsb.DB{
 
+	public static final String GENERATION_POLICY_PROPERTY = "aerospike.generationpolicy";
+	public static final String GENERATION_POLICY_PROPERTY_DEFAULT = "NONE"; //NONE, GT
 	public static final int OK = 0;
 	public static final int NULL_RESULT = -20;
 	private static final Map<Integer, Integer> RESULT_CODE_MAPPER;
@@ -43,7 +46,7 @@ public class AerospikeClient extends com.yahoo.ycsb.DB{
 		RESULT_CODE_MAPPER.put(ResultCode.SERIALIZE_ERROR, -10);
 
 	}
-
+	
 	private com.aerospike.client.AerospikeClient as;
 
 	public static  String NAMESPACE = "test";
@@ -89,6 +92,14 @@ public class AerospikeClient extends com.yahoo.ycsb.DB{
 			throw new DBException(String.format("Failed to add %s:%d to cluster.",
 					host, port));
 		}
+
+		String genPolicyString = props.getProperty(GENERATION_POLICY_PROPERTY, GENERATION_POLICY_PROPERTY_DEFAULT);
+		GenerationPolicy generationPolicy = GenerationPolicy.NONE;
+		if ("GT".equals(genPolicyString)) {
+			generationPolicy = GenerationPolicy.EXPECT_GEN_GT;
+			writePolicy.generation = 10000;
+		}
+		writePolicy.generationPolicy = generationPolicy;
 
 	}
 
