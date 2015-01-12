@@ -21,7 +21,7 @@ public class AerospikeClient extends com.yahoo.ycsb.DB{
 
 	public static final String GENERATION_POLICY_PROPERTY = "aerospike.generationpolicy";
 	public static final String GENERATION_POLICY_PROPERTY_DEFAULT = "NONE"; //NONE, GT
-	public static final int writePolicy.generation WRITE_GENERATION_PROPERTY_DEFAULT = 10000; // Only available for aerospike.generationpolicy = GT
+	public static final int WRITE_GENERATION_PROPERTY_DEFAULT = 10000; // Only available for aerospike.generationpolicy = GT
 	public static final int OK = 0;
 	public static final int NULL_RESULT = -20;
 	private static final Map<Integer, Integer> RESULT_CODE_MAPPER;
