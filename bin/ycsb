@@ -27,20 +27,20 @@ DATABASES = {
     "accumulo"     : "com.yahoo.ycsb.db.AccumuloClient",
 	"aerospike"    : "com.yahoo.ycsb.db.AerospikeClient",
     "basic"        : "com.yahoo.ycsb.BasicDB",
-    "cassandra"	   : "com.yahoo.ycsb.db.HectorCassandraClient",
+    "cassandra"	   : "com.yahoo.ycsb.db.HectorCassandraClient",	#CassandraClient
     "dynamodb"     : "com.yahoo.ycsb.db.DynamoDBClient",
     "elasticsearch": "com.yahoo.ycsb.db.ElasticSearchClient",
     "gemfire"      : "com.yahoo.ycsb.db.GemFireClient",
     "hbase"        : "com.yahoo.ycsb.db.HBaseClient",
     "hypertable"   : "com.yahoo.ycsb.db.HypertableClient",
-    "infinispan"   : "com.yahoo.ycsb.db.InfinispanClient",
+    "infinispan"   : "com.yahoo.ycsb.db.InfinispanHotRodClient",	#InfinispanClient
     "jdbc"         : "com.yahoo.ycsb.db.JdbcDBClient",
     "mapkeeper"    : "com.yahoo.ycsb.db.MapKeeperClient",
     "mongodb"      : "com.yahoo.ycsb.db.MongoDbClient",
     "memcached"    : "com.yahoo.ycsb.db.MemcachedClient",
     "nosqldb"      : "com.yahoo.ycsb.db.NoSqlDbClient",
     "orientdb"     : "com.yahoo.ycsb.db.OrientDBClient",
-    "redis"        : "com.yahoo.ycsb.db.RedisCluster", 
+    "redis"        : "com.yahoo.ycsb.db.RedisCluster",	#RedisClient
     "voldemort"    : "com.yahoo.ycsb.db.VoldemortClient", 
 	"couchbase"    : "com.yahoo.ycsb.couchbase.CouchBaseClient",
 }

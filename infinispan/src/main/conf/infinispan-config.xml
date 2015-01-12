@@ -11,6 +11,9 @@
 
    <default>
       <transaction />
+      <clustering mode="distribution">
+          <sync/>
+      </clustering>
       <invocationBatching enabled="true" />
    </default>
 
