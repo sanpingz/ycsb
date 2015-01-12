@@ -47,55 +47,6 @@ public class InfinispanHotRodClient extends DB {
    public static final String MAX_RETRIES_PROPERTY = "recordcount";
    public static final String MAX_RETRIES_PROPERTY_DEFAULT = "1000";
 
-   //public static final String CLUSTERED_PROPERTY = "infinispan.clustered";
-   //public static final String CLUSTERED_PROPERTY_DEFAULT = "false";
-
-   //public static final String CLUSTER_NAME_PROPERTY = "infinispan.clusterName";
-   //public static final String CLUSTER_NAME_PROPERTY_DEFAULT = "Test-Cluster";
-
-   //public static final String NUM_OWNERS_PROPERTY = "infinispan.numOwners";
-   //public static final String NUM_OWNERS_PROPERTY_DEFAULT = "3";
-
-   /*
-   public BasicCacheContainer getCacheContainer() throws DBException {
-	  if ("embedded".equals(cacheMode)) {
-         GlobalConfiguration globalConfig = new GlobalConfigurationBuilder()
-			.transport()
-            .defaultTransport()
-            .clusterName(props.getProperty(CLUSTER_NAME_PROPERTY, CLUSTER_NAME_PROPERTY_DEFAULT))
-			.globalJmxStatistics().allowDuplicateDomains(true)
-            .build();
-
-         org.infinispan.configuration.cache.Configuration config = new org.infinispan.configuration.cache.ConfigurationBuilder()
-            .clustering()
-               .cacheMode(CacheMode.DIST_SYNC)
-               .sync()
-               .hash().numOwners(Integer.parseInt(props.getProperty(NUM_OWNERS_PROPERTY, NUM_OWNERS_PROPERTY_DEFAULT)))
-               .compatibility().enable()
-           .build();
-         //cacheManager = new DefaultCacheManager("infinispan-config.xml");
-         EmbeddedCacheManager cacheManager =  new DefaultCacheManager(globalConfig, config);
-		 return cacheManager;
-      } else if ("remote".equals(cacheMode)) {
-		 String server_list = "";
-		 String hosts = props.getProperty("hosts", "127.0.0.1");	//"127.0.0.1:11222"
-		 for(String host: hosts.split(",|;")) {
-			 server_list += host+";";
-		 }
-		 server_list = server_list.substring(0, server_list.length()-1);
-
-		 Configuration config = new ConfigurationBuilder()
-			 .addServers(server_list)
-			 .maxRetries(Integer.parseInt(props.getProperty(MAX_RETRIES_PROPERTY, MAX_RETRIES_PROPERTY_DEFAULT)))
-			 .build();
-		 RemoteCacheManager cacheManager = new RemoteCacheManager(config);
-		 System.out.println(cacheManager.getProperties());
-		 return cacheManager;
-	  } else {
-		  throw new DBException("Invalid CacheContainer mode, only embedded and remote supported");
-	  }
-   }
-   */
 
    public void init() throws DBException {
       props = getProperties();
