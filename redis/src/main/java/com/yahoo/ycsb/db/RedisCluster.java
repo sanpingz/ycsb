@@ -24,6 +24,7 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.Protocol;
 import redis.clients.jedis.JedisCluster;
 import redis.clients.jedis.HostAndPort;
+import redis.clients.jedis.exceptions.JedisException;
 
 public class RedisCluster extends DB {
 
@@ -34,8 +35,6 @@ public class RedisCluster extends DB {
     public static final String PORT_PROPERTY = "redis.port";
     public static final int PORT_PROPERTY_DEFAULT = Protocol.DEFAULT_PORT;
     public static final String PASSWORD_PROPERTY = "redis.password";
-
-    public static final String INDEX_KEY = "_indices";
 
     public void init() throws DBException {
         Properties props = getProperties();
@@ -98,40 +97,35 @@ public class RedisCluster extends DB {
     }
 
     @Override
-    public int insert(String table, String key, HashMap<String, ByteIterator> values) {
-        if (jedis.hmset(key, StringByteIterator.getStringMap(values)).equals("OK")) {
-            jedis.zadd(INDEX_KEY, hash(key), key);
-            return 0;
-        }
-        return 1;
-    }
-
-    @Override
     public int delete(String table, String key) {
-        return jedis.del(key) == 0
-            && jedis.zrem(INDEX_KEY, key) == 0
-               ? 1 : 0;
+        try{
+            return jedis.del(key) == 0 ? 1 : 0;
+        } catch (JedisException e) {
+            System.err.println(e.getMessage());
+            return 1;
+        }
     }
 
     @Override
     public int update(String table, String key, HashMap<String, ByteIterator> values) {
-        return jedis.hmset(key, StringByteIterator.getStringMap(values)).equals("OK") ? 0 : 1;
+        try{
+            return jedis.hmset(key, StringByteIterator.getStringMap(values)).equals("OK") ? 0 : 1;
+        } catch (JedisException e) {
+            System.err.println(e.getMessage());
+            return 1;
+        }
+    }
+
+    @Override
+    public int insert(String table, String key, HashMap<String, ByteIterator> values) {
+        return update(table, key, values);
     }
 
     @Override
     public int scan(String table, String startkey, int recordcount,
             Set<String> fields, Vector<HashMap<String, ByteIterator>> result) {
-        Set<String> keys = jedis.zrangeByScore(INDEX_KEY, hash(startkey),
-                                Double.POSITIVE_INFINITY, 0, recordcount);
-
-        HashMap<String, ByteIterator> values;
-        for (String key : keys) {
-            values = new HashMap<String, ByteIterator>();
-            read(table, key, fields, values);
-            result.add(values);
-        }
-
-        return 0;
+        //don't support scan
+        return -1;
     }
 
 }
